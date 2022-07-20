@@ -1,16 +1,22 @@
 <script>
+import ProjectsFilter from "./ProjectsFilter.vue";
 import { mapState } from "vuex";
 import feather from "feather-icons";
 
 export default {
+  props: ['projectLimit'],
   data: () => {
     return {
       selectedProject: "",
       searchProject: "",
+      projects: [],
     };
   },
+  components: {
+    ProjectsFilter,
+  },
   computed: {
-    ...mapState(["projectsHeading", "projectsDescription", "projects"]),
+    ...mapState(["projectsHeading", "projectsDescription"]),
     filteredProjects() {
       if (this.selectedProject) {
         return this.filterProjectsByCategory();
@@ -32,10 +38,23 @@ export default {
       let project = new RegExp(this.searchProject, "i");
       return this.projects.filter((el) => el.title.match(project));
     },
+    async getDataFromFireStore() {
+      // ref = /projects/allProjects
+      const ref = this.$fire.firestore.collection("projects").doc("allProjects");
+      let doc = await ref.get();
+      if (!doc.exists) {
+        console.log("No such document!");
+        return;
+      }
+      this.projects = doc.data().value;
+    }
   },
   mounted() {
     feather.replace();
   },
+  created() {
+    this.getDataFromFireStore();
+  }
 };
 </script>
 
@@ -54,7 +73,8 @@ export default {
           dark:text-ternary-light
         "
       >
-        {{ projectsHeading }}
+        <!-- {{ projectsHeading }} -->
+        專案作品
       </p>
       <!-- Note: This description is commented out, but if you want to see it, just uncomment this -->
       <!-- <p class="text-lg sm:text-xl text-gray-500 dark:text-ternary-light">
@@ -64,7 +84,7 @@ export default {
 
     <!-- Filter and search projects -->
     <div class="mt-8 sm:mt-10">
-      <h3
+      <!-- <h3
         class="
           font-general-regular
           text-center text-secondary-dark
@@ -76,7 +96,7 @@ export default {
         "
       >
         Search projects by title or filter by category
-      </h3>
+      </h3> -->
       <div
         class="
           flex
@@ -138,7 +158,7 @@ export default {
     <!-- Projects grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6 sm:gap-10">
       <div
-        v-for="project in filteredProjects"
+        v-for="(project, index) in filteredProjects"        
         :key="project.id"
         class="
           rounded-xl
@@ -152,13 +172,13 @@ export default {
         "
         aria-label="Single Project"
       >
-        <NuxtLink :to="`/projects/${project.id}`">
-          <div>
-            <img
-              :src="project.img"
+        <NuxtLink v-if="index < projectLimit" :to="`/projects/${project.id}`">
+          <div class="h-[250px] w-[400px]">
+            <div
+              :style="{ backgroundImage: 'url(' + project.img + ')' }"
               :alt="project.title"
-              class="rounded-t-xl border-none"
-            />
+              class="rounded-t-xl border-none h-full bg-cover bg-center"
+            ></div>
           </div>
           <div class="text-center px-4 py-6">
             <p

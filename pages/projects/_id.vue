@@ -6,15 +6,33 @@ export default {
   data: () => {
     return {
       // @todo
+      projectExist: false,
+      project: {},
     };
   },
-  computed: {
-    project() {
-      return this.$store.getters.getProjectById(this.$route.params.id);
-    },
+  methods: {
+    getProjectDetailFromFireStore() {
+      const ref = this.$fire.firestore.collection("projectDetails").doc(this.$route.params.id);
+      console.log("getDataFromFireStore");
+      ref.get().then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          this.project = doc.data();
+          this.projectExist = true;
+        }
+        else{
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+    }
   },
   mounted() {
     feather.replace();
+    console.log(this.project)
+    this.getProjectDetailFromFireStore();
   },
   updated() {
     feather.replace();
@@ -26,7 +44,7 @@ export default {
 <template>
   <div class="container mx-auto">
     <!-- Check if there are projects and then load -->
-    <div v-if="project">
+    <div v-if="projectExist">
       <!-- Project heading and meta info -->
       <div>
         <p
@@ -83,14 +101,14 @@ export default {
       <!-- Project gallery -->
       <div class="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12">
         <div
-          class="mb-10 sm:mb-0"
+          class="mb-10 sm:mb-0 h-[24rem] w-[26rem]"
           v-for="projectImage in project.projectImages"
           :key="projectImage.id"
         >
-          <img
-            :src="projectImage.img"
-            class="rounded-xl cursor-pointer shadow-lg sm:shadow-none"
-          />
+          <div
+            :style="{ backgroundImage: 'url(' + projectImage.img + ')' }"
+            class="rounded-xl cursor-pointer shadow-lg sm:shadow-none h-full bg-cover bg-center"
+          ></div>
         </div>
       </div>
 
@@ -122,7 +140,9 @@ export default {
               >
                 <span>{{ info.title }}: </span>
                 <a
-                  href="#"
+                  :href="info.type === 'url' ? info.urls : '##'"
+                  :style="{'pointer-events': info.type === 'url' ? '' : 'none'}"
+                  target="_blank"
                   :class="
                     info.title == 'Website' || info.title == 'Phone'
                       ? 'hover:underline cursor-pointer'
@@ -250,7 +270,7 @@ export default {
       </div>
 
       <!-- Project related projects -->
-      <ProjectRelatedProjects />
+      <!-- <ProjectRelatedProjects /> -->
     </div>
 
     <!-- Load not found components if no project found -->

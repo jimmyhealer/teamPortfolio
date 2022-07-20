@@ -51,7 +51,7 @@ export default {
         xl:max-w-screen-xl
         block
         sm:flex sm:justify-between sm:items-center
-        py-6
+        
       "
     >
       <!-- Header menu links and small screen hamburger menu -->
@@ -61,16 +61,16 @@ export default {
           <NuxtLink to="/">
             <img
               v-if="this.$colorMode.value == 'dark'"
-              src="~/static/logo-light.svg"
-              class="w-36"
+              src="~/static/logo-dark.png"
+              class="w-32"
               alt="Light Logo"
             />
 
             <img
               v-else
-              src="~/static/logo-dark.svg"
+              src="~/static/logo-light.png"
               alt="Color Logo"
-              class="w-36"
+              class="w-32"
             />
           </NuxtLink>
         </div>
@@ -181,7 +181,7 @@ export default {
         class="hidden sm:flex justify-between items-center flex-col md:flex-row"
       >
         <!-- Hire me button -->
-        <div class="font-general-medium hidden md:block">
+        <!-- <div class="font-general-medium hidden md:block">
           <button
             class="
               text-md
@@ -198,7 +198,7 @@ export default {
           >
             Hire Me
           </button>
-        </div>
+        </div> -->
 
         <!-- Theme switcher large screen -->
         <button

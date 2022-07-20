@@ -34,7 +34,7 @@ export default {
       "
     >
       <!-- Footer social links -->
-      <div class="flex flex-col justify-center items-center mb-12 sm:mb-20">
+      <!-- <div class="flex flex-col justify-center items-center mb-12 sm:mb-20">
         <p
           class="
             font-general-semibold
@@ -70,7 +70,7 @@ export default {
             <i :data-feather="social.icon" class="w-6 sm:w-8 h-6 sm:h-8"></i>
           </a>
         </ul>
-      </div>
+      </div> -->
 
       <!-- Footer copyright -->
       <FooterCopyright />

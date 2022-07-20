@@ -6,6 +6,9 @@ export default {
       // @todo
     };
   },
+  components: {
+    ProjectsGrid: () => import("~/components/projects/ProjectsGrid"),
+  },
   computed: {
     // @todo
   },
@@ -14,7 +17,7 @@ export default {
 
 <template>
   <div class="container mx-auto">
-    <ProjectsGrid />
+    <ProjectsGrid :projectLimit="36"/>
   </div>
 </template>
 

@@ -1,9 +1,10 @@
 <script>
 import AppBanner from "../components/shared/AppBanner.vue";
 import Button from "../components/reusable/Button.vue";
+import ProjectsGrid from "../components/projects/ProjectsGrid.vue";
 export default {
   scrollToTop: true,
-  components: { AppBanner, Button },
+  components: { AppBanner, Button, ProjectsGrid },
 };
 </script>
 
@@ -11,7 +12,7 @@ export default {
   <div class="container mx-auto">
     <AppBanner />
 
-    <ProjectsGrid />
+    <ProjectsGrid :projectLimit="6"/>
 
     <!-- View more projects button -->
     <div class="mt-5 sm:mt-14 flex justify-center">
@@ -33,9 +34,9 @@ export default {
           sm:text-xl
           duration-300
         "
-        aria-label="More Projects"
+        aria-label="更多專案"
       >
-        <Button title="More Projects" />
+        <Button title="更多專案" />
       </NuxtLink>
     </div>
   </div>

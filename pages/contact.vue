@@ -1,26 +1,29 @@
 <script>
 import feather from "feather-icons";
+import ContactDetails from "~/components/contact/ContactDetails.vue";
+import ContactForm from "~/components/contact/ContactForm.vue";
 
 export default {
   scrollToTop: true,
+  components: {
+    ContactDetails,
+    ContactForm,
+  },
   data: () => {
     return {
       contacts: [
         {
           id: 1,
-          name: "Your Address, Your City, Your Country",
-          icon: "map-pin",
+          name: "ycystudio1@gmai.com",
+          icon: "mail",
+          href: "mailto:ycystudio1@gmail.com",
         },
         {
           id: 2,
-          name: "email@domain.com",
-          icon: "mail",
-        },
-        {
-          id: 3,
-          name: "555 8888 888",
-          icon: "phone",
-        },
+          name: "歪西歪工作室",
+          icon: "facebook",
+          href: "https://www.facebook.com/YCY.web.studio",
+        }
       ],
     };
   },
@@ -39,7 +42,7 @@ export default {
       container
       mx-auto
       flex flex-col-reverse
-      md:flex-row md:py-10 md:mt-20
+      md:flex-row md:py-10 md:mt-10
     "
   >
     <!-- Contact form -->

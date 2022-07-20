@@ -1,6 +1,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  mode: 'jit',
   purge: [
     "./components/**/*.{vue,js}",
     "./layouts/**/*.vue",
@@ -13,10 +14,10 @@ module.exports = {
     extend: {
       colors: {
         "primary-light": "#F7F8FC",
-        "secondary-light": "#FFFFFF",
+        "secondary-light": "#F3F3F3",
         "ternary-light": "#f6f7f8",
 
-        "primary-dark": "#0D2438",
+        "primary-dark": "#303841",
         "secondary-dark": "#102D44",
         "ternary-dark": "#1E3851",
       },

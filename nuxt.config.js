@@ -2,7 +2,7 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "static",
   router: {
-    base: '/teamPortfolio/'
+    base: "/ycystudio-portfolio/",
   },
   colorMode: {
     classSuffix: "",
@@ -10,9 +10,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Stoman Portfolio",
+    title: "YCY Web Studio",
     htmlAttrs: {
-      lang: "en",
+      lang: "zh-tw",
     },
     meta: [
       { charset: "utf-8" },
@@ -29,10 +29,11 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     // "~/plugins/back-to-top.js"
+    { src: "~/plugins/vt-notifications", mode: 'client'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -42,8 +43,28 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/firebase"],
 
+  // Firebase: https://firebase.nuxtjs.org/guide/getting-started
+  firebase: {
+    config: {
+      apiKey: "AIzaSyBIhCZvWTIEH7nZ4s1uU-Q8YfZcy9hfgE8",
+      authDomain: "ycywebstudio.firebaseapp.com",
+      projectId: "ycywebstudio",
+      storageBucket: "ycywebstudio.appspot.com",
+      messagingSenderId: "562771751444",
+      appId: "1:562771751444:web:039f4cb3fb3ab0f69f6d01",
+      measurementId: "G-YYPY1TXMT3",
+    },
+    services: {
+      firestore: true,
+    },
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [
+      "vt-notifications"
+    ],
+  },
+
 };
