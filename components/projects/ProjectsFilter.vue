@@ -5,36 +5,27 @@ export default {
       type: String,
       default: "projects",
     },
-    selectOptions: {
-      type: Array,
-      default: () => {
-        return [
-          "Web Application",
-          "Mobile Application",
-          "Desktop Application",
-          // "UI/UX Design",
-          // "Branding & Anim",
-        ];
-      }
-    },
   },
   data: () => {
     return {
-      selectOptions: [],
-    }
+      selectOptions: [
+        "Web Application",
+        "Mobile Application",
+        "Desktop Application",
+      ],
+    };
   },
   methods: {
     async getCategoryFromFireStore() {
-      const ref = this.$fire.firestore
-        .collection("projects").doc("category");
-      
+      const ref = this.$fire.firestore.collection("projects").doc("category");
+
       let doc = await ref.get();
-      this.selectOptions = doc.data().value;      
+      this.selectOptions = doc.data().value;
     },
   },
   created() {
     this.getCategoryFromFireStore();
-  }
+  },
 };
 </script>
 

@@ -1,11 +1,13 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
+  ssr: false,
   target: "static",
   server: {
     port: 3000,
   },
   router: {
     base: "/ycystudio-portfolio/",
+    middleware: ['gh-pages-dynamic-routes']
   },
   colorMode: {
     classSuffix: "",
