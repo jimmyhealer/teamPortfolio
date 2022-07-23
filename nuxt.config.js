@@ -6,6 +6,7 @@ export default {
   },
   router: {
     base: "/ycystudio-portfolio/",
+    middleware: 'gh-pages-dynamic-routes'
   },
   colorMode: {
     classSuffix: "",
